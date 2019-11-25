@@ -33,17 +33,13 @@ public class HttpUtilsTest {
         headers.put("x-requested-with", "XMLHttpRequest");
         Map<String, Object> params = new HashMap<>();
         params.put("data", "fW77Hi%2F9q9ijW4Xh6%2FXIs9pvJ6C8nB%2FSmfU2lVW2FdNsyXfY3YZBVgv4RJ2qe5gzQEF0zHsKmb4uclu%2BCQAIuc96i42JyvrThPC%2FXLMgfzDrd%2BUZpU7DDk1KuDy8ps%2BobQu7t9xHlVWLYV7ZWy1kS7MA4AhhX07zBGXukFCZpoE%3D");
-        String result = HttpUtils.post(url, headers, params);
+        HttpUtils.post(url, headers, params);
         int nThreads = 100;
         ExecutorService executorService = Executors.newFixedThreadPool(nThreads);
         for (int i = 0; i < 500; i++) {
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    while (true) {
-                        String result = HttpUtils.post(url, headers, params);
-                        System.out.println(result);
-                    }
+            executorService.execute(() -> {
+                while (true) {
+                    HttpUtils.post(url, headers, params);
                 }
             });
         }
