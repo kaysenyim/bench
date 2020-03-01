@@ -2,6 +2,7 @@ package com.my.vo;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 public class Param {
     private String name;
@@ -28,7 +29,7 @@ public class Param {
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.value = String.format(value, new Date(), new Date());
     }
 
     public Param(String name, String value) {

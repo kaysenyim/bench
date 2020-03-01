@@ -10,7 +10,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = {
         "url",
         "method",
-        "executer",
         "headers",
         "params"
 })
@@ -19,8 +18,6 @@ public class Request {
 
     private String method;
 
-    private int executer;
-
     private Headers headers;
 
     private Params params;
@@ -28,7 +25,6 @@ public class Request {
     private Request(Builder builder) {
         setUrl(builder.url);
         setMethod(builder.method);
-        setExecuter(builder.executer);
         setHeaders(builder.headers);
         setParams(builder.params);
     }
@@ -49,14 +45,6 @@ public class Request {
         this.method = method;
     }
 
-    public int getExecuter() {
-        return executer;
-    }
-
-    public void setExecuter(int executer) {
-        this.executer = executer;
-    }
-
     public Headers getHeaders() {
         return headers;
     }
@@ -73,10 +61,9 @@ public class Request {
         this.params = params;
     }
 
-    public Request(String url, String method, int executer, Headers headers, Params params) {
+    public Request(String url, String method, Headers headers, Params params) {
         this.url = url;
         this.method = method;
-        this.executer = executer;
         this.headers = headers;
         this.params = params;
     }
@@ -91,8 +78,6 @@ public class Request {
                 .append(url).append('\"');
         sb.append(",\"method\":\"")
                 .append(method).append('\"');
-        sb.append(",\"executer\":")
-                .append(executer);
         sb.append(",\"headers\":")
                 .append(headers);
         sb.append(",\"params\":")
@@ -104,7 +89,6 @@ public class Request {
     public static final class Builder {
         private String url;
         private String method;
-        private int executer;
         private Headers headers;
         private Params params;
 
@@ -118,11 +102,6 @@ public class Request {
 
         public Builder method(String val) {
             method = val;
-            return this;
-        }
-
-        public Builder executer(int val) {
-            executer = val;
             return this;
         }
 

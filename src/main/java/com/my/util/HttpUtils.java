@@ -55,18 +55,20 @@ public class HttpUtils {
             }
             connection.setDoOutput(true);
             connection.setDoInput(true);
+//            connection.setConnectTimeout(1);
             PrintWriter out = new PrintWriter(connection.getOutputStream());
             out.print(body);
             out.flush();
             connection.connect();
             int responseCode = connection.getResponseCode();
             if (responseCode == 200) {
-                System.out.println("OK");
+                System.out.printf("%tF %tT POST %s %s\n", new Date(), new Date(), url, responseCode);
             } else {
                 System.err.printf("%s Response code : %s\n", new Date(), responseCode);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            System.err.printf("%tF %tT POST %s %s\n", new Date(), new Date(), url, e.getMessage());
         }
     }
 }

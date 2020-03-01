@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.concurrent.Executors;
 public class Main {
     public static void main(String[] args) {
         try {
+            ExecutorService executorService = Executors.newCachedThreadPool();
 //             String fileName = "/Users/kaysenyim/Workspace/bench/doc/demo.xml";
             String fileName = args[0];
             StringBuffer sb = new StringBuffer();
@@ -30,59 +32,64 @@ public class Main {
             }
             reader.close();
             in.close();
-            Request request = XmlUtils.toObj(Request.class, sb.toString());
-            String url = request.getUrl();
-            boolean isJson = false;
-            Map<String, String> headers = new HashMap<>();
-            List<Header> headerList = request.getHeaders().getHeader();
-            String method = request.getMethod();
-            for (Header header : headerList) {
-                headers.put(header.getName(), header.getValue());
-                if ("Content-Type".equalsIgnoreCase(header.getName()) && header.getValue().contains("json")) {
-                    isJson = true;
-                }
-            }
-            Map<String, Object> params = new HashMap<>();
-            List<Param> paramList = request.getParams().getParam();
-            for (Param param : paramList) {
-                params.put(param.getName(), param.getValue());
-            }
-
-            Thread task = null;
-            switch (method) {
-                case "get":
-                case "GET":
-                    task = new Thread(() -> {
-                        while (true) {
-                            HttpUtils.get(url, headers);
-                        }
-                    });
-                    break;
-                case "post":
-                case "POST":
-                    if (isJson) {
-                        task = new Thread(() -> {
-                            while (true) {
-                                HttpUtils.post(url, headers, JSONObject.toJSONString(params));
-                            }
-                        });
-                    } else {
-                        task = new Thread(() -> {
-                            while (true) {
-                                HttpUtils.post(url, headers, params);
-                            }
-                        });
+            Requests requests = XmlUtils.toObj(Requests.class, sb.toString());
+            List<Request> requestList = requests.getRequest();
+            List<Thread> taskList = new ArrayList<>();
+            requestList.forEach(request -> {
+                String url = request.getUrl();
+                boolean isJson = false;
+                Map<String, String> headers = new HashMap<>();
+                List<Header> headerList = request.getHeaders().getHeader();
+                String method = request.getMethod();
+                for (Header header : headerList) {
+                    headers.put(header.getName(), header.getValue());
+                    if ("Content-Type".equalsIgnoreCase(header.getName()) && header.getValue().contains("json")) {
+                        isJson = true;
                     }
-                    break;
-                default:
-                    System.err.println("method!");
-                    return;
-            }
+                }
+                Map<String, Object> params = new HashMap<>();
+                List<Param> paramList = request.getParams().getParam();
+                for (Param param : paramList) {
+                    params.put(param.getName(), param.getValue());
+                }
 
-            ExecutorService executorService = Executors.newCachedThreadPool();
-            int executer = request.getExecuter();
+                Thread task = null;
+                switch (method) {
+                    case "get":
+                    case "GET":
+                        task = new Thread(() -> {
+                            while (true) {
+                                HttpUtils.get(url, headers);
+                            }
+                        });
+                        break;
+                    case "post":
+                    case "POST":
+                        if (isJson) {
+                            task = new Thread(() -> {
+                                while (true) {
+                                    HttpUtils.post(url, headers, JSONObject.toJSONString(params));
+                                }
+                            });
+                        } else {
+                            task = new Thread(() -> {
+                                while (true) {
+                                    HttpUtils.post(url, headers, params);
+                                }
+                            });
+                        }
+                        break;
+                    default:
+                        System.err.println("method!");
+                        return;
+                }
+                taskList.add(task);
+
+
+            });
+            int executer = requests.getExecuter();
             for (int i = 0; i < executer; i++) {
-                executorService.execute(task::run);
+                taskList.forEach(executorService::execute);
             }
             executorService.shutdown();
             while (true) {

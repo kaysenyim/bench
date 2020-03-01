@@ -116,7 +116,6 @@ public class XmlUtilsTest {
             String xml = XmlUtils.toXml(new Request.Builder()
                     .url("https://chainex.in/Digital/exchange_usercoin/list")
                     .method("POST")
-                    .executer(1)
                     .headers(headers)
                     .params(params)
                     .build());

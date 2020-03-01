@@ -1,21 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<request>
-    <url>http://webapi.icotau.com/common/rate</url>
-    <method>POST</method>
-    <executer>100</executer>
-    <headers>
-        <header name="exchange-token" value=""/>
-        <header name="X-Forwarded-For" value="127.0.0.1"/>
-        <header name="Proxy-Client-IP" value="127.0.0.1"/>
-        <header name="WL-Proxy-Client-IP" value="127.0.0.1"/>
-        <header name="HTTP_CLIENT_IP" value="127.0.0.1"/>
-        <header name="X-Real-IP" value="127.0.0.1"/>
-        <header name="User-Agent" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"/>
-        <header name="Referer" value="http://icotau.com/trade"/>
-        <header name="Host" value="webapi.icotau.com"/>
-        <header name="Content-Type" value="application/json"/>
-    </headers>
-    <params>
-        <param name="uaTime" value="2019-11-25 12:08:05"/>
-    </params>
-</request>
+<requests executer="10">
+    <request>
+        <url>https://webapi.gbex.co/common/index</url>
+        <method>POST</method>
+        <headers>
+            <header name="exchange-token" value=""/>
+            <header name="X-Forwarded-For" value="127.0.0.1"/>
+            <header name="Proxy-Client-IP" value="127.0.0.1"/>
+            <header name="WL-Proxy-Client-IP" value="127.0.0.1"/>
+            <header name="HTTP_CLIENT_IP" value="127.0.0.1"/>
+            <header name="X-Real-IP" value="127.0.0.1"/>
+            <header name="User-Agent" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"/>
+            <header name="Referer" value="http://icotau.com/trade"/>
+            <header name="Host" value="webapi.icotau.com"/>
+            <header name="Content-Type" value="application/json"/>
+        </headers>
+        <params>
+            <param name="uaTime" value="%tF %tT"/>
+        </params>
+    </request>
+    <request>
+        <url>https://webapi.gbex.co/cms/footer/list</url>
+        <method>POST</method>
+        <headers>
+            <header name="exchange-token" value=""/>
+            <header name="X-Forwarded-For" value="127.0.0.1"/>
+            <header name="Proxy-Client-IP" value="127.0.0.1"/>
+            <header name="WL-Proxy-Client-IP" value="127.0.0.1"/>
+            <header name="HTTP_CLIENT_IP" value="127.0.0.1"/>
+            <header name="X-Real-IP" value="127.0.0.1"/>
+            <header name="User-Agent" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"/>
+            <header name="Referer" value="http://icotau.com/trade"/>
+            <header name="Host" value="webapi.icotau.com"/>
+            <header name="Content-Type" value="application/json"/>
+        </headers>
+        <params>
+            <param name="uaTime" value="%tF %tT"/>
+        </params>
+    </request>
+    <request>
+        <url>https://webapi.gbex.co/common/public_info</url>
+        <method>POST</method>
+        <headers>
+            <header name="exchange-token" value=""/>
+            <header name="X-Forwarded-For" value="127.0.0.1"/>
+            <header name="Proxy-Client-IP" value="127.0.0.1"/>
+            <header name="WL-Proxy-Client-IP" value="127.0.0.1"/>
+            <header name="HTTP_CLIENT_IP" value="127.0.0.1"/>
+            <header name="X-Real-IP" value="127.0.0.1"/>
+            <header name="User-Agent" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"/>
+            <header name="Referer" value="http://icotau.com/trade"/>
+            <header name="Host" value="webapi.icotau.com"/>
+            <header name="Content-Type" value="application/json"/>
+        </headers>
+        <params>
+            <param name="uaTime" value="%tF %tT"/>
+        </params>
+    </request>
+    <request>
+        <url>https://webapi.gbex.co/common/user_info</url>
+        <method>POST</method>
+        <headers>
+            <header name="exchange-token" value=""/>
+            <header name="X-Forwarded-For" value="127.0.0.1"/>
+            <header name="Proxy-Client-IP" value="127.0.0.1"/>
+            <header name="WL-Proxy-Client-IP" value="127.0.0.1"/>
+            <header name="HTTP_CLIENT_IP" value="127.0.0.1"/>
+            <header name="X-Real-IP" value="127.0.0.1"/>
+            <header name="User-Agent" value="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36"/>
+            <header name="Referer" value="http://icotau.com/trade"/>
+            <header name="Host" value="webapi.icotau.com"/>
+            <header name="Content-Type" value="application/json"/>
+        </headers>
+        <params>
+            <param name="uaTime" value="%tF %tT"/>
+        </params>
+    </request>
+</requests>
+
